@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 import model, processing
 import pyforms, pickle
-from webbrowser import get as WBget, open as WBopen
+import webbrowser
+import pysettings
 from pyforms import BaseWidget
 from pyforms.controls import ControlText
 from pyforms.controls import ControlTextArea
 from pyforms.controls import ControlButton
 from pyforms.controls import ControlLabel
-from pyforms.controls import ControlWeb
+# from pyforms.controls import ControlWeb
 from os import path, makedirs
 from time import sleep
 
@@ -77,9 +78,12 @@ class mainWindow(BaseWidget):
         self.settings_window.show()
 
     def _show_project(self):
-        self.project_window = projectWindow()
-        self.project_window.parent = self
-        self.project_window.show()
+        global BROWSERS
+        global WORKING_OPT
+        # self.project_window = projectWindow(BROWSERS, WORKING_OPT)
+        # self.project_window.parent = self
+        # self.project_window.show()
+        webbrowser.open("https://github.com/SYANiDE-/RIST-ng")
 
 
 
@@ -180,10 +184,12 @@ Options for "selenium" automated queries:
         ''.join(["%s=%s\n" % (x, y) for x, y in BROWSERS.items()]),
         ''.join(["%s=%s\n" % (x, y) for x, y in SELENIUMS.items()])    )
 
-class projectWindow(BaseWidget):
-    def __init__(self):
-        BaseWidget.__init__(self,"RIST-ng.py Github home")
-        self.Github, self.Github.value = ControlWeb(""), "https://github.com/SYANiDE-/RIST-ng"    
+# class projectWindow(BaseWidget):
+#     def __init__(self, BROWSERS, WORKING_OPT):
+#         BaseWidget.__init__(self,"RIST-ng.py Github home")
+#         # self.Github, self.Github.value = ControlWeb(""), "https://github.com/SYANiDE-/RIST-ng"    
+#         # BR = webbrowser.get(BROWSERS[int(WORKING_OPT['browser'])])
+
 
 
 if __name__=="__main__":  
