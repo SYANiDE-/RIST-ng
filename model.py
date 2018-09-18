@@ -317,3 +317,4 @@ class methods():
         submit = SE.find_element_by_id("analyze_btn")
         submit.click()
 
+

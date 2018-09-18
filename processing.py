@@ -35,7 +35,7 @@ class sanity():
 
 
 class worker():
-    def __init__(self, IoC, WORKING_SET, WORKING_OPT, user_choice):
+    def __init__(self, IoC, WORKING_SET, WORKING_OPT, user_choice): 
         self.BrowserDict = {
             0:'mozilla', 1:'firefox', 2:'netscape', 3:'galeon', 4:'epiphany',
             5:'skipstone', 6:'kfmclient', 7:'konqueror', 8:'kfm', 9:'mosaic',
@@ -55,10 +55,12 @@ class worker():
             self.WORKING_SET.append(item)
         for key, val in WORKING_OPT.items():
             self.WORKING_OPT[key] = val
-        self.scope()
+        self.scope(WORKING_SET, WORKING_OPT)
 
-    def scope(self):
+    def scope(self, WORKING_SET, WORKING_OPT):
         jobs_list = []
+        for key, value in self.BrowserDict.items():
+            WB.register(value, None, WB.BackgroundBrowser(self.WORKING_OPT[value+'_path']),key)
         BR = WB.get(self.BrowserDict[int(self.WORKING_OPT['browser'])])
         SE = getattr(webdriver, self.SeleniumDict[int(self.WORKING_OPT['selenium'])])
         for WS in self.WORKING_SET:
@@ -74,8 +76,4 @@ class worker():
         Methods = model.methods(self.WORKING_SET, self.WORKING_OPT, BR, SE)
         trigger = getattr(Methods, name)
         trigger(IoC=self.IoC)  # this is the call
-
-
-
-
 
